@@ -29,6 +29,8 @@ export const login = async (req, res, next) => {
        
         if(!isPasswordCorrect) return next(createError(400, "wornd password or username")) //verify password
 
+        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin})
+
         const {password,isAdmin, ...otherDetails} =user._doc; //to remove hash passw & admin;
         res.status(200).json({...otherDetails});
     } catch (err) {
