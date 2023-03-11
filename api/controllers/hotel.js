@@ -13,8 +13,14 @@ export const createHotel = async (req,res,next) =>{
 
 export const updateHotel = async (req,res,next) =>{
      try {
-        const savedHotel = await newHotel.save()
-        res.status(200).json(savedHotel)
+        // const savedHotel = await newHotel.save()
+        // res.status(200).json(savedHotel)
+        const updatedHotel = await Hotel.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true }
+          );
+          res.status(200).json(updatedHotel);
     } catch (err) {
        next(err);
     }
